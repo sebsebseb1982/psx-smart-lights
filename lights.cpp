@@ -1,33 +1,47 @@
 #include "esp32-hal-gpio.h"
 #include "lights.h"
+#include "light.h"
 
 #define TRIANGLE_LIGHT_PIN 12
 #define CIRCLE_LIGHT_PIN 13
 #define CROSS_LIGHT_PIN 27
 #define SQUARE_LIGHT_PIN 14
 
+Lights::Lights(void)
+  : triangle(TRIANGLE_LIGHT_PIN, 0),
+    circle(CIRCLE_LIGHT_PIN, 1),
+    cross(CROSS_LIGHT_PIN, 2),
+    square(SQUARE_LIGHT_PIN, 3) {
+}
+
 void Lights::setup() {
-  pinMode(TRIANGLE_LIGHT_PIN, OUTPUT);
-  pinMode(CIRCLE_LIGHT_PIN, OUTPUT);
-  pinMode(CROSS_LIGHT_PIN, OUTPUT);
-  pinMode(SQUARE_LIGHT_PIN, OUTPUT);
 }
 
 void Lights::loop() {
 }
 
-void Lights::setTriangleLightStatus(int status) {
-  digitalWrite(TRIANGLE_LIGHT_PIN, status);
+
+void Lights::on() {
+  this->triangle.on();
+  this->circle.on();
+  this->cross.on();
+  this->square.on();
 }
 
-void Lights::setCircleLightStatus(int status) {
-  digitalWrite(CIRCLE_LIGHT_PIN, status);
+void Lights::dim(int brightness) {
+  this->triangle.dim(brightness);
+  this->circle.dim(brightness);
+  this->cross.dim(brightness);
+  this->square.dim(brightness);
 }
 
-void Lights::setCrossLightStatus(int status) {
-  digitalWrite(CROSS_LIGHT_PIN, status);
+void Lights::off() {
+  this->triangle.off();
+  this->circle.off();
+  this->cross.off();
+  this->square.off();
 }
 
-void Lights::setSquareLightStatus(int status) {
-  digitalWrite(SQUARE_LIGHT_PIN, status);
+void Lights::breeze(int cycleDurationInMs) {
+
 }

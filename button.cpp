@@ -11,10 +11,8 @@ void Button::setup() {
 
 void Button::loop() {
   if(digitalRead(BUTTON_PIN) == LOW) {
-    Lights::setCrossLightStatus(HIGH);
     Buzzer::on();
   } else {
-    Lights::setCrossLightStatus(LOW);
     Buzzer::off();
   }
 }

@@ -2,15 +2,22 @@
 #define LIGHTS_H
 
 #include <Arduino.h>
+#include "light.h"
 
 class Lights {
+  private:
+    Light triangle;
+    Light circle;
+    Light cross;
+    Light square;
   public:
-    static void setup();
-    static void loop();
-    static void setTriangleLightStatus(int status);
-    static void setCircleLightStatus(int status);
-    static void setCrossLightStatus(int status);
-    static void setSquareLightStatus(int status);
+    Lights(void);
+    void setup();
+    void loop();
+    void on();
+    void dim(int brightness);
+    void off();
+    void breeze(int cycleDurationInMs);
 };
 
 #endif

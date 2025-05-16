@@ -12,8 +12,7 @@ class Buzzer {
     static void loop();
     static void on();
     static void off();
-    static void setFrequency(int frequency);
-    static void playTone(int frequency, int durationInMs);
+    static void beep(int durationInMs);
 };
 
 #endif

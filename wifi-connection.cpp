@@ -5,21 +5,20 @@
 
 unsigned int WiFiConnection::nbConnection = 0;
 
-void WiFiConnection::setup() {
+void WiFiConnection::setup(Lights *lights) {
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   //Serial.print("Connexion en cours ");
   int retry = 0; 
   while (WiFi.status() != WL_CONNECTED) {
-    Lights::setTriangleLightStatus(HIGH);
-    Lights::setCircleLightStatus(HIGH);
-    Lights::setCrossLightStatus(HIGH);
-    Lights::setSquareLightStatus(HIGH);
-    delay(250);
-    Lights::setTriangleLightStatus(LOW);
-    Lights::setCircleLightStatus(LOW);
-    Lights::setCrossLightStatus(LOW);
-    Lights::setSquareLightStatus(LOW);
-    delay(250);
+    for (int i = 0; i < 256; i++) {
+      lights->dim(i);
+      delay(1);
+    }
+
+    for (int i = 255; i >= 0; i--) {
+      lights->dim(i);
+      delay(1);
+    }
 
     retry ++;
 
@@ -28,14 +27,15 @@ void WiFiConnection::setup() {
     }
     //Serial.print(".");
   }
+  lights->off();
   nbConnection++;
   Serial.println("");
   Serial.print("Connecté au WIFI avec l'adresse IP : ");
   Serial.println(WiFi.localIP());
 }
 
-void WiFiConnection::loop() {
+void WiFiConnection::loop(Lights *lights) {
   if(WiFi.status() != WL_CONNECTED) {
-    setup();
+    setup(lights);
   }
 }
